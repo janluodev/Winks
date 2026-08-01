@@ -66,3 +66,15 @@ npm run deploy
 ```
 
 Supabase 模式发布前，先在当前 shell 提供 `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY`（或使用已忽略的本地 `.env`）；Demo 发布则显式设置 `VITE_DEMO_MODE=true`。`predeploy` 会拒绝缺少运行配置的构建，再自动执行测试、lint 与生产构建。PR 和 `main` push 由 `.github/workflows/quality.yml` 执行同一套检查。
+
+## Supabase 免费层保活与恢复
+
+`.github/workflows/supabase-keepalive.yml` 每天分三个时段执行一次只读 `links` 查询，以满足免费层需要持续用户数据库活动的条件。该任务不会修改链接或点击量，也支持在 GitHub Actions 中手动触发。
+
+若任务出现 DNS 解析失败或 Supabase `HTTP 540`：
+
+1. 在 [Supabase Dashboard](https://supabase.com/dashboard) 打开 Winks 项目并执行 **Resume project**。
+2. 等待项目状态恢复为 `ACTIVE_HEALTHY`，并确认 REST API 可访问。
+3. 在 GitHub Actions 手动运行 **Supabase Keepalive**，确认返回 `HTTP 200`。
+
+免费层保活属于尽力而为；Supabase 仍以实际数据库活动判定是否暂停。不能接受恢复窗口的生产项目应使用不会因不活跃而暂停的付费计划。参见 [Supabase Project Pausing](https://supabase.com/docs/guides/platform/free-project-pausing)。

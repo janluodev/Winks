@@ -160,6 +160,15 @@
 - [x] 新增表单：简介可不填、可清空，`maxLength=15`；移动端 dialog 完整入视口。
 - [x] 远端与发布：两条 Supabase 迁移及 36 条回填已验证；实现 `8d6ab22`、布局修复 `748f510` 已推送；Quality `29244895890`、Pages `29244932907` 成功，生产 `gh-pages=7db96867` smoke 通过。
 
+### P1-11：Supabase 免费层 Keepalive 加固 ✅ 2026-08-01（Codex）
+
+- [x] 复盘失败 run `30637414809`：GitHub Runner 三次请求均无法解析项目域名，并非密钥、RLS 或查询语法错误。
+- [x] 核对平台状态：项目已恢复 `ACTIVE_HEALTHY`，项目域名重新解析，匿名 REST 查询返回 `HTTP 200`。
+- [x] 调度从每 3 天一次调整为每天 3 次只读数据库查询，匹配 Supabase 对持续用户数据库活动的公开说明。
+- [x] 避开 GitHub Actions 整点高峰，增加并发保护、job 超时、DNS/网络重试、禁用缓存和 JSON 响应校验。
+- [x] README 补充暂停恢复流程；免费层无 SLA 的剩余风险登记到 `.cloud.md`。
+- [x] GitHub Actions 手动验收 run `30689217032` 成功，真实 Runner 返回 `HTTP 200` 并通过 JSON 数组校验。
+
 ## 4. 待规划（P2）
 
 ### P2-1：PIN 配置化
