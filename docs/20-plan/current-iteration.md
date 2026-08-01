@@ -167,6 +167,7 @@
 - [x] 调度从每 3 天一次调整为每天 3 次只读数据库查询，匹配 Supabase 对持续用户数据库活动的公开说明。
 - [x] 避开 GitHub Actions 整点高峰，增加并发保护、job 超时、DNS/网络重试、禁用缓存和 JSON 响应校验。
 - [x] README 补充暂停恢复流程；免费层无 SLA 的剩余风险登记到 `.cloud.md`。
+- [x] GitHub Actions 手动验收 run `30689217032` 成功，真实 Runner 返回 `HTTP 200` 并通过 JSON 数组校验。
 
 ## 4. 待规划（P2）
 
